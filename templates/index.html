@@ -36,7 +36,7 @@
         
         let remoteHost = "https://hsiao-flask-test.herokuapp.com";
         let localHost = "http://127.0.0.1:5000"
-        let isProd = false;
+        let isProd = true;
         let baseUrl = isProd?remoteHost:localHost;
 
         function httpGetAsync(theUrl, callback) {
