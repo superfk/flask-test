@@ -1,17 +1,14 @@
-from flask import Flask
+from flask import Flask, jsonify, request, render_template
+
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    main_html = '''
-    <input type='text' placeholder='你的姓名'>
-    <button id='confirmBtn'>確定</button>
-    '''
-    return main_html
+    return render_template('index.html')
 
-@app.route('/test')
-def test():
-    return 'This is Test'
+@app.route('/hello/<string:name>',  methods=['POST','GET'])
+def get_name(name):
+    return jsonify({'message':'hello {}'.format(name)})
 
 if __name__=='__main__':
     app.run()

@@ -1,0 +1,38 @@
+<html>
+<head>
+</head>
+<body>
+    <div>
+        <input id='username' type='text' placeholder='你的姓名'>
+        <button id='confirmBtn'>確定</button>
+    </div>
+    <div id='resp' style='color:red; font-size: 50px;margin: 8px'></div>
+
+    <script type="text/javascript">
+        function httpGetAsync(theUrl, callback) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                    callback(xmlHttp.responseText);
+            }
+            xmlHttp.open("GET", theUrl, true); // true for asynchronous
+            xmlHttp.send(null);
+        }
+    
+        let checkName = document.getElementById('confirmBtn');
+        let userName = document.getElementById('username');
+        let respArea = document.getElementById('resp')
+    
+        checkName.addEventListener('click', ()=>{
+            httpGetAsync('https://hsiao-flask-test.herokuapp.com/hello'+'/'+userName.value, function(response) {
+                console.log(response)
+                let ret = JSON.parse(response);
+                respArea.innerHTML = ret.message;
+    
+        } )
+        })
+    
+    </script>
+
+</body>
+</html>
