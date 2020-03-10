@@ -8,7 +8,7 @@ def home():
 
 @app.route('/hello/<string:name>',  methods=['POST','GET'])
 def get_name(name):
-    return jsonify({'message':'Hello {}, You receivef a smail'.format(name)})
+    return jsonify({'message':'Hello {}, You receive a smile'.format(name)})
 
 if __name__=='__main__':
     app.run()
