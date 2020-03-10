@@ -3,7 +3,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return '<h1>hello Flask</h1>'
+    main_html = '''
+    <input type='text' placeholder='你的姓名'>
+    <button id='confirmBtn'>確定</button>
+    '''
+    return main_html
 
 @app.route('/test')
 def test():
