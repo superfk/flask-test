@@ -1,14 +1,44 @@
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div>
-        <input id='username' type='text' placeholder='你的姓名'>
-        <button id='confirmBtn'>確定</button>
+        <input i class='w3-input' type='text' >
+        
+        <div class="w3-card-4">
+            <div class="w3-container w3-green">
+              <h2>輸入表單</h2>
+            </div>
+        
+            <form id="myform" class="w3-container" method="GET">
+              <p>
+                <label>姓名</label>
+                <input class="w3-input w3-hover-pale-yellow" type="text" placeholder="你的姓名" name='name'>
+              </p>
+              <button class="w3-btn w3-green" type='submit'>確定</button>
+              <p>     
+            </form>
+          </div>
     </div>
-    <div id='resp' style='color:red; font-size: 50px;margin: 8px'></div>
+    <div class="w3-container">
+        <div id='resp' class="w3-panel w3-large">
+
+        </div>
+        <div id='cuteImage'>
+
+        </div>
+    </div>
 
     <script type="text/javascript">
+        
+        let remoteHost = "https://hsiao-flask-test.herokuapp.com";
+        let localHost = "http://127.0.0.1:5000"
+        let isProd = false;
+        let baseUrl = isProd?remoteHost:localHost;
+
         function httpGetAsync(theUrl, callback) {
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.onreadystatechange = function() {
@@ -19,15 +49,25 @@
             xmlHttp.send(null);
         }
     
-        let checkName = document.getElementById('confirmBtn');
-        let userName = document.getElementById('username');
-        let respArea = document.getElementById('resp')
+        let myForm = document.getElementById('myform');
+        let respArea = document.getElementById('resp');
+        let cuteImage = document.getElementById('cuteImage');
     
-        checkName.addEventListener('click', ()=>{
-            httpGetAsync('https://hsiao-flask-test.herokuapp.com/hello'+'/'+userName.value, function(response) {
+        myForm.addEventListener('submit', (e)=>{
+
+            e.preventDefault();
+
+            let name = myForm.elements.name.value;  // 取得 elements 集合中 name 屬性為 name 的值
+            
+            httpGetAsync(baseUrl + '/hello' + '/' + name, function(response) {
                 console.log(response)
                 let ret = JSON.parse(response);
                 respArea.innerHTML = ret.message;
+                let img = document.createElement("img");
+                img.src = "/static/img/cute.jpg"
+                img.width = "300"
+                cuteImage.appendChild(img);
+
     
         } )
         })
